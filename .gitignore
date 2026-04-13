@@ -1,0 +1,10 @@
+# Rust
+nexus-core/target/
+**/*.rs.bk
+
+# Go (เผื่อมีการ build ไฟล์ exe)
+nexus-gateway/nexus-gateway.exe
+**/*.exe
+
+# Environment Variables (ห้ามเอาพาสเวิร์ด DB ขึ้นเน็ตเด็ดขาด!)
+**/.env

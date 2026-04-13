@@ -1,0 +1,17 @@
+[package]
+name = "nexus-core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# gRPC ของเรา
+tonic = "0.10"
+# ตัวแปลงข้อมูลจาก .proto เป็น Rust
+prost = "0.12"
+# Async Runtime ที่แรงที่สุด(หัวใจ Server)
+tokio = {version = "1.0", features = ["macros", "rt-multi-thread"]}
+
+[build-dependencies]
+# ตัวช่วยคอมไพล์ .proto ตอนเราสั่ง build
+tonic-build = "0.10"
+

@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: nexus_db
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secretpassword
+      - POSTGRES_DB=inventory_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    container_name: nexus_web
+    # ใช้ python -m uvicorn เพื่อความชัวร์เรื่อง Path
+    command: python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    # Force Config: ยัดเยียดค่า Environment ให้ Python โดยตรง
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secretpassword
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_SERVER=db
+      - POSTGRES_PORT=5432
+
+volumes:
+  postgres_data:
